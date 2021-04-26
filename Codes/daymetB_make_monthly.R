@@ -42,7 +42,7 @@ for(row_n in 1:nrow(all_combinations)){
   
   #Open the raw files
   file.brk <-  suppressWarnings(raster::brick(files.year.full))
-  source(paste0(codes_folder, '/grid_data_git/Codes/daymetC_make_monthly_paralel.R'))
+  source(paste0(codes_folder, '/grid_data_git/Codes/daymetC_make_monthly_parallel.R'))
   "C:/Users/germanm2/Documents/grid_data_git/Codes/daymetC_make_monthly_paralel.R"
   "./grid_data_git/Codes/daymetC_make_monthly_paralel.R"
 } #end row_n loop 

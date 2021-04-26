@@ -28,11 +28,12 @@ spatial_aggr <- function(tile_n){
 
   # server_folder <- '//ad.uillinois.edu/aces/CPSC/share/Bioinformatics Lab/germanm2/Grid/daymet/daymet_monthly/' #CPSC
   # server_folder <- 'Z:/Grid/daymet/monthly_data/'
-  server_folder <- 'C:/Users/germanm2/Documents/monthly_data/'
+  # server_folder <- 'C:/Users/germanm2/Documents/monthly_data/'
   # server_folder = 'Y:/Grid/daymet/monthly_data/' #Dell
+  monthly_folder <- 'grid_data_box/monthly_data/'
   
-  monthly_grid_filename <- paste(server_folder,
-                                 var_n, '_', year_n, '_tile_', tile_n, sep = '') #CPSC
+  monthly_grid_filename <- paste(monthly_folder,
+                                 var_n, '_', year_n, '_tile_', tile_n, sep = '') 
 
   #Open the raw files
   file.brk <-  suppressWarnings(raster::brick(monthly_grid_filename))

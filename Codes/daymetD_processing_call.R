@@ -24,7 +24,7 @@ source('./grid_data_git/Codes/functions_grid_Dec10.R')
 
 
 variables <- c('prcp', 'srad', 'tmax', 'tmin')
-years <- 1980:2019
+years <- 2019
 # 
 all_combinations = expand.grid(variables, years)
 
@@ -54,7 +54,11 @@ for(row_n in 1:nrow(all_combinations)){
   var_n =  as.character(all_combinations[row_n,1])
   print(paste(year_n, var_n))
   
-  source('./grid_data_git/Codes/daymet_processing_paralel_Dec17.R', local=TRUE)
+  source(paste0(codes_folder, '/grid_data_git/Codes/daymetE_processing_parallel.R'), local=TRUE)
+  "C:/Users/germanm2/Documents/grid_data_git/Codes/daymetE_processing_parallel.R"
+  "./grid_data_git/Codes/daymetE_processing_parallel.R"
+  
+  
   filename <- paste('./grid_data_box/files_rds/weather_files/weather_', year_n,'_', var_n, '.rds', sep = '')  
   
   saveRDS(results, filename)
