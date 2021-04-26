@@ -2,10 +2,10 @@ rm(list=ls())
 
 # setwd('C:/Users/germa/Box Sync/My_Documents') #dell
 # codes_folder <-'C:/Users/germa/Documents'#Dell
-setwd('C:/Users/germanm2/Box Sync/My_Documents')#CPSC
-codes_folder <-'C:/Users/germanm2/Documents'#CPSC
-# setwd('~')#Server
-# codes_folder <-'~' #Server
+# setwd('C:/Users/germanm2/Box Sync/My_Documents')#CPSC
+# codes_folder <-'C:/Users/germanm2/Documents'#CPSC
+setwd('~')#Server
+codes_folder <-'~' #Server
 
 
 source('./Codes_useful/R.libraries.R')
@@ -21,12 +21,12 @@ years <- 2019:2020
 # 
 all_combinations = expand.grid(variables, years)
 
-# folder_name = '/home/germanm2/Project.Grid/Grid/daymet/daily_data' #srv
+folder_name = '/home/germanm2/daily_data' #srv
 # folder_name = '//ad.uillinois.edu/aces/CPSC/share/Bioinformatics Lab/germanm2/Grid/daymet/daily_data/' #CPSC
 # folder_name = 'S:/Bioinformatics Lab/germanm2/Grid/daymet/daily_data/'
 # 
 # folder_name = 'C:/Users/germanm2/Box Sync/My_Documents/Project.Grid/Grid/daymet/daily_data'
-folder_name = 'C:/Users/germanm2/Documents/daily_data'
+# folder_name = 'C:/Users/germanm2/Documents/daily_data'
 
 #CREATE A FAST CLIPPING FILE: has the proj of the daymet raster and the extent of the grid5000_tiles.sf
 grid5000_LLC.sf <- readRDS('./grid_data_box/files_rds/grid5000_LLC.sf.rds')
@@ -48,7 +48,7 @@ for(row_n in 1:nrow(all_combinations)){
   file.brk <-  suppressWarnings(raster::brick(files.year.full))
   source(paste0(codes_folder, '/grid_data_git/Codes/daymet_make_monthly_paralel_Dec17.R'))
   "C:/Users/germanm2/Documents/grid_data_git/Codes/daymet_make_monthly_paralel_Dec17.R"
-
+  "./grid_data_git/Codes/daymet_make_monthly_paralel_Dec17.R"
 } #end row_n loop 
 
 # DELETE ALL FILES

@@ -74,7 +74,7 @@ daymet_temporal_aggr <- function (tile_n){
   # filename = paste("/home/germanm2/Project.Grid/Grid/daymet/monthly_data/", var_n,'_', year_n, '_tile_', tile_n, sep = '')
   # filename = paste('S:/Bioinformatics Lab/germanm2/Grid/daymet/monthly_data/', var_n,'_', year_n, '_tile_', tile_n, sep = '')
   # filename = paste('C:/Users/germanm2/Box Sync/My_Documents/Project.Grid/Grid/daymet/monthly_data/', var_n,'_', year_n, '_tile_', tile_n, sep = '')
-  filename = paste('C:/Users/germanm2/Documents/monthly_data/', var_n,'_', year_n, '_tile_', tile_n, sep = '')
+  filename = paste('./grid_data_box/monthly_data/', var_n,'_', year_n, '_tile_', tile_n, sep = '')
   
   #filename = paste("//ad.uillinois.edu/aces/CPSC/share/Bioinformatics Lab/germanm2/Grid/daymet/monthly_data/", var_n,'_', year_n, '_tile_', tile_n, sep = '')
   writeRaster(result, filename, format = 'raster', overwrite = TRUE)
