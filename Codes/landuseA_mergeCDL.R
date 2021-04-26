@@ -21,18 +21,6 @@ head(grid5000_tiles.sf)
 
 #Keep the rasters in the P drive for now
 
-CDL09 <- raster('./Project.Grid/Grid/CDL/2009_30m_cdls/2009_30m_cdls.img')
-CDL10 <- raster('./Project.Grid/Grid/CDL/2010_30m_cdls/2010_30m_cdls.img')
-CDL11 <- raster('./Project.Grid/Grid/CDL/2011_30m_cdls/2011_30m_cdls.img')
-CDL12 <- raster('./Project.Grid/Grid/CDL/2012_30m_cdls/2012_30m_cdls.img')
-CDL13 <- raster('./Project.Grid/Grid/CDL/2013_30m_cdls/2013_30m_cdls.img')
-CDL14 <- raster('./Project.Grid/Grid/CDL/2014_30m_cdls/2014_30m_cdls.img')
-CDL15 <- raster('./Project.Grid/Grid/CDL/2015_30m_cdls/2015_30m_cdls.img')
-CDL16 <- raster('./Project.Grid/Grid/CDL/2016_30m_cdls/2016_30m_cdls.img')
-CDL17 <- raster('./Project.Grid/Grid/CDL/2017_30m_cdls/2017_30m_cdls.img')
-
-
-
 # CDL17 <- raster('//ad.uillinois.edu/aces/CPSC/share/Bioinformatics Lab/germanm2/Grid/CDL/2017_30m_cdls/2017_30m_cdls.img')
 
 CDL08 <- raster('S:/Bioinformatics Lab/germanm2/Grid/CDL/2008_30m_cdls/2008_30m_cdls.img')
