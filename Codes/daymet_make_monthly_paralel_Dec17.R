@@ -3,7 +3,7 @@
 #===================================
 
 
-no_cores <- detectCores() - 1
+no_cores <- detectCores() - 2
 cl <- makeCluster(no_cores,type='SOCK')
 
 #===================================

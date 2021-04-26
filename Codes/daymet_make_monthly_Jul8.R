@@ -1,9 +1,15 @@
-# wd <- 'C:/Users/germa/Box Sync/My_Documents' #Dell
-wd <- 'C:/Users/germanm2/Box Sync/My_Documents' #CPSC
+rm(list=ls())
+
+# setwd('C:/Users/germa/Box Sync/My_Documents') #dell
+# codes_folder <-'C:/Users/germa/Documents'#Dell
+setwd('C:/Users/germanm2/Box Sync/My_Documents')#CPSC
+codes_folder <-'C:/Users/germanm2/Documents'#CPSC
+# setwd('~')#Server
+# codes_folder <-'~' #Server
 
 
-setwd(wd)
 source('./Codes_useful/R.libraries.R')
+
 # source('/home/germanm2/Codes_useful/R.libraries.R')
 
 # source('~/Project.Grid/Grid/Codes/functions_grid_Dec10.R')
@@ -11,7 +17,7 @@ source('./Project.Grid/Grid/Codes/functions_grid_Dec10.R')
 
 variables <- c('prcp', 'srad', 'tmax', 'tmin')
 # years <- 2009:2017
-years <- 2018
+years <- 2019:2020
 # 
 all_combinations = expand.grid(variables, years)
 
@@ -26,7 +32,7 @@ folder_name = 'C:/Users/germanm2/Documents/daily_data'
 grid5000_LLC.sf <- readRDS('./grid_data_box/files_rds/grid5000_LLC.sf.rds')
 tiles_v <- unique(grid5000_LLC.sf$id_tile)
 
-for(row_n in 2:nrow(all_combinations)){
+for(row_n in 1:nrow(all_combinations)){
   # row_n = 1
   # start = Sys.time()
   year_n = as.character(all_combinations[row_n,2])
@@ -40,8 +46,9 @@ for(row_n in 2:nrow(all_combinations)){
   
   #Open the raw files
   file.brk <-  suppressWarnings(raster::brick(files.year.full))
-  source('./grid_data_git/Codes/daymet_make_monthly_paralel_Dec17.R')
-  
+  source(paste0(codes_folder, '/grid_data_git/Codes/daymet_make_monthly_paralel_Dec17.R'))
+  "C:/Users/germanm2/Documents/grid_data_git/Codes/daymet_make_monthly_paralel_Dec17.R"
+
 } #end row_n loop 
 
 # DELETE ALL FILES
