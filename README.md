@@ -205,10 +205,13 @@ style='font-family:"Segoe UI",sans-serif;color:black;text-decoration:none'>nfmar
 </span></span></b><b><span style='font-size:26.0pt;line-height:107%;color:black'>DATABASE
 DESCRIPTION</span></b></h1>
 
-<p class=MsoNormal>Link to database: <a
+<p class=MsoNormal>The script grid_tutorial.R provides a tutorial with examples
+of possible uses of the database</p>
+
+<p class=MsoNormal>Link to database files: <a
 href="https://uofi.box.com/s/yatgv535y7ouai3k8b0nwluj062uy6sj">https://uofi.box.com/s/yatgv535y7ouai3k8b0nwluj062uy6sj</a></p>
 
-<p class=MsoNormal>The work has four output files:</p>
+<p class=MsoNormal>The database has four output files:</p>
 
 <table class=MsoTableGrid border=1 cellspacing=0 cellpadding=0
  style='border-collapse:collapse;border:none'>
@@ -567,11 +570,14 @@ INDEX</span></b></h1>
 
 <p class=MsoNormal>&nbsp;</p>
 
-<p class=MsoNormal>The following sections are only relevant to update the
+<p class=MsoNormal>The following scripts are only relevant to update the
 database or create another one.</p>
 
 <p class=MsoNormal><u>Link to folder with all data files</u>: <a
 href="https://uofi.box.com/s/k46278qikvncl9marbmhnetbrn7fqz72">https://uofi.box.com/s/k46278qikvncl9marbmhnetbrn7fqz72</a></p>
+
+<p class=MsoNormal>(download to computer and name as “grid_data_box” and direct
+the scripts to it)</p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=594
  style='width:445.25pt;border-collapse:collapse'>
@@ -800,25 +806,6 @@ href="https://uofi.box.com/s/k46278qikvncl9marbmhnetbrn7fqz72">https://uofi.box.
   padding:0in 5.4pt 0in 5.4pt;height:15.0pt'>
   <p class=MsoNormal style='margin-bottom:0in;line-height:normal'><span
   style='color:black'>Obtains for each cell of the grid the soil information</span></p>
-  </td>
- </tr>
- <tr style='height:15.0pt'>
-  <td width=59 nowrap valign=bottom style='width:44.0pt;border:solid windowtext 1.0pt;
-  border-top:none;padding:0in 5.4pt 0in 5.4pt;height:15.0pt'>
-  <p class=MsoNormal align=right style='margin-bottom:0in;text-align:right;
-  line-height:normal'><span style='color:black'>13</span></p>
-  </td>
-  <td width=233 nowrap valign=bottom style='width:175.0pt;border-top:none;
-  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  padding:0in 5.4pt 0in 5.4pt;height:15.0pt'>
-  <p class=MsoNormal style='margin-bottom:0in;line-height:normal'><span
-  style='color:black'>grid_tutorial.R</span></p>
-  </td>
-  <td width=302 nowrap valign=bottom style='width:226.25pt;border-top:none;
-  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  padding:0in 5.4pt 0in 5.4pt;height:15.0pt'>
-  <p class=MsoNormal style='margin-bottom:0in;line-height:normal'><span
-  style='color:black'>Tutorial on how to open the grid and make maps</span></p>
   </td>
  </tr>
 </table>
