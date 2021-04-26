@@ -13,7 +13,7 @@ source('./Codes_useful/R.libraries.R')
 # source('/home/germanm2/Codes_useful/R.libraries.R')
 
 # source('~/Project.Grid/Grid/Codes/functions_grid_Dec10.R')
-source('./Project.Grid/Grid/Codes/functions_grid_Dec10.R')
+source('./grid_data_git/Codes/functions_grid_Dec10.R')
 
 variables <- c('prcp', 'srad', 'tmax', 'tmin')
 # years <- 2009:2017
