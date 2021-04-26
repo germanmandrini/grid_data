@@ -6,7 +6,8 @@ source('./Codes_useful/R.libraries.R')
 # install.packages("daymetr")
 #library("daymetr")
 
-source('./grid_data_git/Codes/functions.grid_Dec10.R')
+
+source('./Project.Grid/Grid/Codes/functions_grid_Dec10.R')
 
 #DOWNLOAD THE DAILY DATA: 4 VARIABLES
 # Catalogo: https://thredds.daac.ornl.gov/thredds/catalogs/daymet/daymet.html
