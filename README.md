@@ -1,4 +1,4 @@
-# grid_data
+# SPATIAL GRIDDED DATA FOR WEATHER, SOIL AND LAND USE
 Code to create process spatial data into grid for the continental US. The data includes weather, soil and landuse
 <html>
 
