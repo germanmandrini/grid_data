@@ -87,7 +87,7 @@ files_names <- list.files('./grid_data_box/files_rds/weather_files', pattern = '
 
 # DO IT IN TWO PARTS-BECAUSE IT GETS TOO BIG
 grid5000_weather.dt <- data.table()
-for(filename in files_names[77:156]){
+for(filename in files_names[81:160]){
   # filename <- files_names[77]
   counter = which(files_names == filename)
   print(counter)
@@ -105,7 +105,6 @@ for(filename in files_names[77:156]){
 }#end of the filename loop
 
 
-grid5000_landuse.dt
 grid5000_weather.dt[,source := 'daymet']
 grid5000_weather.dt <- rename(grid5000_weather.dt, variable = var)
 grid5000_weather.dt[,source := 'daymet']
@@ -113,7 +112,13 @@ grid5000_weather.dt[variable == 'prcp',unit := 'mm/month']
 grid5000_weather.dt[variable == 'tmin' | variable == 'tmax',unit := 'degrees C']
 grid5000_weather.dt[variable == 'srad',unit := 'W/m2']
 setcolorder(grid5000_weather.dt, c('id_tile', 'id_5000', 'source', 'variable','unit', 'year', 'month', 'value'))
+
+grid5000_weather.dt <- grid5000_weather.dt[year <= 1999]
+saveRDS(grid5000_weather.dt, "./grid_data_box/files_rds/grid5000_weather_part1_dt.rds")
+fwrite(grid5000_weather.dt, './grid_data_box/Deliverables/grid5000_weather_part1.csv')
+
+
 grid5000_weather.dt <- grid5000_weather.dt[year > 1999]
 saveRDS(grid5000_weather.dt, "./grid_data_box/files_rds/grid5000_weather_part2_dt.rds")
-fwrite(grid5000_weather.dt, './Project.Grid/Grid/Deliverables/grid5000_weather_part2.csv')
+fwrite(grid5000_weather.dt, './grid_data_box/Deliverables/grid5000_weather_part2.csv')
  
