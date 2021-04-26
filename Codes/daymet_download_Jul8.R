@@ -12,8 +12,6 @@ source('./Codes_useful/R.libraries.R')
 
 # install.packages("daymetr")
 #library("daymetr")
-
-
 source(paste0(codes_folder, '/grid_data_git/Codes/functions_grid_Dec10.R'))
 "C:/Users/germanm2/Documents/grid_data_git/Codes/functions_grid_Dec10.R"
 
