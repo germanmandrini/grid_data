@@ -1,12 +1,20 @@
-wd <- 'C:/Users/germanm2/Box Sync/My_Documents' #CPSC
-wd <- 'C:/Users/germa/Box Sync/My_Documents' #Dell
-setwd(wd)
+rm(list=ls())
+
+# setwd('C:/Users/germa/Box Sync/My_Documents') #dell
+# codes_folder <-'C:/Users/germa/Documents'#Dell
+setwd('C:/Users/germanm2/Box Sync/My_Documents')#CPSC
+codes_folder <-'C:/Users/germanm2/Documents'#CPSC
+# setwd('~')#Server
+# codes_folder <-'~' #Server
+
 
 source('./Codes_useful/R.libraries.R')
+
 # install.packages("daymetr")
 #library("daymetr")
 
-source('./Project.Grid/Grid/Codes/functions.grid_Dec10.R')
+source(paste0(codes_folder, '/grid_data_git/Codes/functions_grid_Dec10.R'))
+"C:/Users/germanm2/Documents/grid_data_git/Codes/functions_grid_Dec10.R"
 
 #DOWNLOAD THE DAILY DATA: 4 VARIABLES
 # Catalogo: https://thredds.daac.ornl.gov/thredds/catalogs/daymet/daymet.html
@@ -21,7 +29,7 @@ source('./Project.Grid/Grid/Codes/functions.grid_Dec10.R')
 
 
 variables <- c('prcp', 'srad', 'tmax', 'tmin')
-years <-2018
+years <- 2019:2020
 # 
 all_combinations = expand.grid(variables, years)
 # 

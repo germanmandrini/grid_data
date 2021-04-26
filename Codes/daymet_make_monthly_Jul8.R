@@ -5,8 +5,8 @@ wd <- 'C:/Users/germanm2/Box Sync/My_Documents' #CPSC
 setwd(wd)
 source('./Codes_useful/R.libraries.R')
 # source('/home/germanm2/Codes_useful/R.libraries.R')
-# source('~/Project.Grid/Grid/Codes/functions.grid_Dec10.R')
-source('./Project.Grid/Grid/Codes/functions.grid_Dec10.R')
+# source('~/Project.Grid/Grid/Codes/functions_grid_Dec10.R')
+source('./Project.Grid/Grid/Codes/functions_grid_Dec10.R')
 
 variables <- c('prcp', 'srad', 'tmax', 'tmin')
 # years <- 2009:2017
