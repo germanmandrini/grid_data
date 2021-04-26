@@ -6,7 +6,7 @@ source('./Codes_useful/R.libraries.R')
 # install.packages("daymetr")
 #library("daymetr")
 
-source('./Project.Grid/Grid/Codes/functions.grid_Dec10.R')
+source('./grid_data_git/Codes/functions.grid_Dec10.R')
 
 #DOWNLOAD THE DAILY DATA: 4 VARIABLES
 # Catalogo: https://thredds.daac.ornl.gov/thredds/catalogs/daymet/daymet.html
@@ -80,11 +80,11 @@ folder_name = '//ad.uillinois.edu/aces/CPSC/share/Bioinformatics Lab/germanm2/Gr
 
 #CREATE A FAST CLIPPING FILE: has the proj of the daymet raster and the extent of the grid5000_tiles.sf
 if(FALSE){
-  grid5000_tiles.sf <- readRDS("./Project.Grid/Grid/rds.files/grid5000_tiles.sf5.rds")
+  grid5000_tiles.sf <- readRDS("./grid_data_box/files_rds/grid5000_tiles.sf5.rds")
   grid5000_wgs.sf <- st_transform(grid5000_tiles.sf, crs = raster::crs(file.brk)@projargs)
-  saveRDS(grid5000_wgs.sf, './Project.Grid/Grid/rds.files/grid5000_wgs.sf.rds')
+  saveRDS(grid5000_wgs.sf, './grid_data_box/files_rds/grid5000_wgs.sf.rds')
   }
-grid5000_wgs.sf <- readRDS( './Project.Grid/Grid/rds.files/grid5000_wgs.sf.rds')
+grid5000_wgs.sf <- readRDS( './grid_data_box/files_rds/grid5000_wgs.sf.rds')
 
 for(row_n in 1:nrow(all_combinations)){
   # row_n = 148
@@ -121,8 +121,8 @@ for(row_n in 1:nrow(all_combinations)){
     ids_5000_seq <- unique(one_tile.sf$id_5000)
     
     
-    source('./Project.Grid/Grid/Codes/daymet_processing_paralel.R', local=TRUE)
-    filename <- paste('./Project.Grid/Grid/rds.files/weather_files/weather_', year_n,'_', var_n,'_tile_', tile_n, '.rds', sep = '')  
+    source('./grid_data_git/Codes/daymet_processing_paralel.R', local=TRUE)
+    filename <- paste('./grid_data_box/files_rds/weather_files/weather_', year_n,'_', var_n,'_tile_', tile_n, '.rds', sep = '')  
     
     saveRDS(results, filename)
     print(Sys.time() - start_time)

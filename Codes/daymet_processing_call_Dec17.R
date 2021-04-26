@@ -6,7 +6,7 @@ source('./Codes_useful/R.libraries.R')
 # install.packages("daymetr")
 #library("daymetr")
 
-source('./Project.Grid/Grid/Codes/functions.grid_Dec10.R')
+source('./grid_data_git/Codes/functions.grid_Dec10.R')
 
 #DOWNLOAD THE DAILY DATA: 4 VARIABLES
 # Catalogo: https://thredds.daac.ornl.gov/thredds/catalogs/daymet/daymet.html
@@ -32,15 +32,15 @@ all_combinations = expand.grid(variables, years)
 
 #CREATE A NEW GRID FILE: grid5000_tiles.sf TAHT has the proj of the daymet raster 
 if(FALSE){
-  grid5000_tiles.sf <- readRDS("./Project.Grid/Grid/rds.files/grid5000_tiles.sf6.rds")
+  grid5000_tiles.sf <- readRDS("./grid_data_box/files_rds/grid5000_tiles.sf6.rds")
   proj <- raster::crs(file.brk)
   grid5000_LLC.sf <- st_transform(grid5000_tiles.sf, proj@projargs)
-  saveRDS(grid5000_LLC.sf, './Project.Grid/Grid/rds.files/grid5000_LLC.sf.rds')
+  saveRDS(grid5000_LLC.sf, './grid_data_box/files_rds/grid5000_LLC.sf.rds')
   grid5000_LLC.spdf <- as(grid5000_LLC.sf, 'Spatial')
-  saveRDS(grid5000_LLC.spdf, './Project.Grid/Grid/rds.files/grid5000_LLC.spdf.rds') # for the server, cannot use sf package
+  saveRDS(grid5000_LLC.spdf, './grid_data_box/files_rds/grid5000_LLC.spdf.rds') # for the server, cannot use sf package
 }
 
-grid5000_LLC.sf <- readRDS('./Project.Grid/Grid/rds.files/grid5000_LLC.sf.rds')
+grid5000_LLC.sf <- readRDS('./grid_data_box/files_rds/grid5000_LLC.sf.rds')
 
 tiles_seq <- unique(grid5000_LLC.sf$id_tile)
 
@@ -51,8 +51,8 @@ for(row_n in 1:nrow(all_combinations)){
   var_n =  as.character(all_combinations[row_n,1])
   print(paste(year_n, var_n))
   
-  source('./Project.Grid/Grid/Codes/daymet_processing_paralel_Dec17.R', local=TRUE)
-  filename <- paste('./Project.Grid/Grid/rds.files/weather_files/weather_', year_n,'_', var_n, '.rds', sep = '')  
+  source('./grid_data_git/Codes/daymet_processing_paralel_Dec17.R', local=TRUE)
+  filename <- paste('./grid_data_box/files_rds/weather_files/weather_', year_n,'_', var_n, '.rds', sep = '')  
   
   saveRDS(results, filename)
   print(Sys.time() - start_time)
@@ -60,7 +60,7 @@ for(row_n in 1:nrow(all_combinations)){
 
 
 #DETECT MISSING FILES
-files_names <- list.files('./Project.Grid/Grid/rds.files/weather_files', pattern = 'weather_')
+files_names <- list.files('./grid_data_box/files_rds/weather_files', pattern = 'weather_')
 files_names <- gsub('weather_','',files_names)
 files_names <- gsub('.rds','',files_names)
 files_names2 <- strsplit(files_names,"_")
@@ -76,7 +76,7 @@ class(files_names3$Var2)
 
 missing <- fsetdiff(data.table(all_combinations), files_names3, all = FALSE)
 
-files_names <- list.files('./Project.Grid/Grid/rds.files/weather_files', pattern = 'weather_', full.names = TRUE,include.dirs = FALSE)
+files_names <- list.files('./grid_data_box/files_rds/weather_files', pattern = 'weather_', full.names = TRUE,include.dirs = FALSE)
 
 # DO IT IN TWO PARTS-BECAUSE IT GETS TOO BIG
 grid5000_weather.dt <- data.table()
@@ -90,7 +90,7 @@ for(filename in files_names[77:156]){
   # count_by_batch = 50
   # if(counter %% count_by_batch == 0 | counter == length(files_names)){
   #   batch_count = ceiling(counter/count_by_batch)
-  #   batch_name = paste('./Project.Grid/Grid/rds.files/landuse_files/batches_for_merge/landuse_batch_', batch_count, '.rds', sep = '')   
+  #   batch_name = paste('./grid_data_box/files_rds/landuse_files/batches_for_merge/landuse_batch_', batch_count, '.rds', sep = '')   
   #   saveRDS(grid5000_landuse.dt, batch_name)
   #   grid5000_landuse.dt <- data.table()
   # }#end of the save batches
@@ -107,6 +107,6 @@ grid5000_weather.dt[variable == 'tmin' | variable == 'tmax',unit := 'degrees C']
 grid5000_weather.dt[variable == 'srad',unit := 'W/m2']
 setcolorder(grid5000_weather.dt, c('id_tile', 'id_5000', 'source', 'variable','unit', 'year', 'month', 'value'))
 grid5000_weather.dt <- grid5000_weather.dt[year > 1999]
-saveRDS(grid5000_weather.dt, "./Project.Grid/Grid/rds.files/grid5000_weather_part2_dt.rds")
+saveRDS(grid5000_weather.dt, "./grid_data_box/files_rds/grid5000_weather_part2_dt.rds")
 fwrite(grid5000_weather.dt, './Project.Grid/Grid/Deliverables/grid5000_weather_part2.csv')
  

@@ -1,7 +1,7 @@
 #setwd(wd)
 
 source('/home/germanm2/Codes_useful/R.libraries.R')
-source('~/Project.Grid/Grid/Codes/functions.grid_Dec10.R')
+source('~/grid_data_git/Codes/functions.grid_Dec10.R')
 
 variables <- c('prcp', 'srad', 'tmax', 'tmin')
 years <- 1980:2017
@@ -12,11 +12,11 @@ folder_name = '/home/germanm2/Project.Grid/Grid/daymet/daily_data' #srv
 
 #CREATE A FAST CLIPPING FILE: has the proj of the daymet raster and the extent of the grid5000_tiles.sf
 if(FALSE){
-  grid5000_tiles.sf <- readRDS("./Project.Grid/Grid/rds.files/grid5000_tiles.sf5.rds")
+  grid5000_tiles.sf <- readRDS("./grid_data_box/files_rds/grid5000_tiles.sf5.rds")
   grid5000_wgs.sf <- st_transform(grid5000_tiles.sf, crs = raster::crs(file.brk)@projargs)
-  saveRDS(grid5000_wgs.sf, './Project.Grid/Grid/rds.files/grid5000_wgs.sf.rds')
+  saveRDS(grid5000_wgs.sf, './grid_data_box/files_rds/grid5000_wgs.sf.rds')
 }
-grid5000_wgs.spdf <- readRDS( './Project.Grid/Grid/rds.files/grid5000_wgs.spdf.rds')
+grid5000_wgs.spdf <- readRDS( './grid_data_box/files_rds/grid5000_wgs.spdf.rds')
 grid5000_wgs.spdf <- grid5000_wgs.spdf[!is.na(grid5000_wgs.spdf@data$US_state),]
 tiles_v <- unique(grid5000_wgs.spdf$id_tile)
 for(row_n in 1:nrow(all_combinations)){
@@ -48,7 +48,7 @@ for(row_n in 1:nrow(all_combinations)){
     }
     #plot(file_monthly_brk)
   
-    filename = paste("/home/germanm2/Project.Grid/Grid/rds.files/daymet_monthly/", var_n,'_', year_n, '_tile_', tile_n, sep = '')
+    filename = paste("/home/germanm2/grid_data_box/files_rds/daymet_monthly/", var_n,'_', year_n, '_tile_', tile_n, sep = '')
     writeRaster(file_monthly_brk, filename, format = 'raster', overwrite = TRUE)
   
   }#end state_n loop

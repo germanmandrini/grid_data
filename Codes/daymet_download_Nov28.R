@@ -8,7 +8,7 @@ library("daymetr")
 # install.packages('nngeo')
 library(nngeo)
 # library('fasterize')
-source('./Project.Grid/Grid/Codes/functions.grid.R')
+source('./grid_data_git/Codes/functions.grid.R')
 
 
 #DOWNLOAD THE DAILY DATA: 4 VARIABLES
@@ -78,17 +78,17 @@ all_combinations = expand.grid(variables, years)
 
 #MAKE THE FOR PRCP YEAR:1980
 folder_name = '//ad.uillinois.edu/aces/CPSC/share/Bioinformatics Lab/germanm2/Grid/daymet/daily_data' #CRPS
-source('./Project.Grid/Grid/Codes/functions.grid.R')
+source('./grid_data_git/Codes/functions.grid.R')
 
 # folder_name = 'T:/germanm2/Grid/daymet/daily_data' #Dell
 
 #list.files(folder_name)
 
-grid5000.sf <- readRDS('./Project.Grid/Grid/rds.files/grid5000_allUS.sf.rds')
+grid5000.sf <- readRDS('./grid_data_box/files_rds/grid5000_allUS.sf.rds')
 tm_shape(grid5000.sf) + tm_borders()
 plot(grid5000.sf)
 
-grid5000.dt <- readRDS('./Project.Grid/Grid/rds.files/grid5000.dt.rds')
+grid5000.dt <- readRDS('./grid_data_box/files_rds/grid5000.dt.rds')
 
 grid5000.w.sf <- grid5000.sf
 # OBJECTIVE: get two files
@@ -348,9 +348,9 @@ for(row_n in 1:nrow(all_combinations)){
   }
 } #end of all combinations loop 
   
-# saveRDS(grid5000_results.sf, './Project.Grid/Grid/rds.files/grid5000_results.sf.rds') 
-# saveRDS(pnt1000_results.sf, './Project.Grid/Grid/rds.files/pnt1000_results.sf.rds') 
-# saveRDS(grid5000_results.sf, './Project.Grid/Grid/rds.files/grid5000_results_july_wk1.sf.rds') 
-# saveRDS(pnt1000_results.sf, './Project.Grid/Grid/rds.files/pnt1000_results_july_wk1.sf.rds')
-# saveRDS(grid5000_results.sf, './Project.Grid/Grid/rds.files/grid5000_results_july.sf.rds') 
-# saveRDS(pnt1000_results.sf, './Project.Grid/Grid/rds.files/pnt1000_results_july.sf.rds')
+# saveRDS(grid5000_results.sf, './grid_data_box/files_rds/grid5000_results.sf.rds') 
+# saveRDS(pnt1000_results.sf, './grid_data_box/files_rds/pnt1000_results.sf.rds') 
+# saveRDS(grid5000_results.sf, './grid_data_box/files_rds/grid5000_results_july_wk1.sf.rds') 
+# saveRDS(pnt1000_results.sf, './grid_data_box/files_rds/pnt1000_results_july_wk1.sf.rds')
+# saveRDS(grid5000_results.sf, './grid_data_box/files_rds/grid5000_results_july.sf.rds') 
+# saveRDS(pnt1000_results.sf, './grid_data_box/files_rds/pnt1000_results_july.sf.rds')

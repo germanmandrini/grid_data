@@ -13,11 +13,11 @@ source('./Codes_useful/R.libraries.R')
 # install.packages("daymetr")
 library("daymetr")
 # library('fasterize')
-source('./Project.Grid/Grid/Codes/functions.grid.R')
+source('./grid_data_git/Codes/functions.grid.R')
 
 
-grid5000.sf <- readRDS('./Project.Grid/Grid/rds.files/grid5000.sf.rds')
-grid5000.dt <- readRDS('./Project.Grid/Grid/rds.files/grid5000.dt.rds')
+grid5000.sf <- readRDS('./grid_data_box/files_rds/grid5000.sf.rds')
+grid5000.dt <- readRDS('./grid_data_box/files_rds/grid5000.dt.rds')
 daymet.folder <- '//ad.uillinois.edu/aces/CPSC/share/Bioinformatics Lab/germanm2/Grid/daymet/'
 tm_shape(tile_outlines) + tm_polygons('TileID')
 
@@ -278,4 +278,4 @@ grid5000.w.dt <- rbind(grid5000.w.dt, srad.4to9.dt, fill = TRUE)
 grid5000.w.dt[,source := 'daymet']
 grid5000.dt <- rbind(grid5000.dt, grid5000.w.dt, fill = TRUE)
 
-saveRDS(grid5000.dt, './Project.Grid/Grid/rds.files/grid5000.dt.rds')
+saveRDS(grid5000.dt, './grid_data_box/files_rds/grid5000.dt.rds')

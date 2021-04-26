@@ -1,8 +1,8 @@
 wd <- 'C:/Users/germanm2/Box Sync/My_Documents' #CPSC
 setwd(wd)
 source('./Codes_useful/R.libraries.R')
-grid5000.sf <- readRDS('./Project.Grid/Grid/rds.files/grid5000.sf.rds')
-grid5000.dt <- readRDS('./Project.Grid/Grid/rds.files/grid5000.dt.rds')
+grid5000.sf <- readRDS('./grid_data_box/files_rds/grid5000.sf.rds')
+grid5000.dt <- readRDS('./grid_data_box/files_rds/grid5000.dt.rds')
 
 #CORN PROPORTION BY YEAR
 unique(grid5000.dt$source)

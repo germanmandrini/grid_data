@@ -78,7 +78,7 @@ plot(tiles.sp)
 tiles.sf <- st_as_sf(tiles.sp) # convert polygons to 'sf' object
 
 grid5000_tiles.r <- fasterize(tiles.sf, grid5000.r, field = 'id_tile') #Transfer values associated with 'object' type spatial data (points, lines, polygons) to raster cells
-#writeRaster(grid5000_tiles.r, "./Project.Grid/Grid/rds.files/grid5000_tiles", format = 'GTiff', overwrite = TRUE)
+#writeRaster(grid5000_tiles.r, "./grid_data_box/files_rds/grid5000_tiles", format = 'GTiff', overwrite = TRUE)
 
 length(which(is.na(grid5000_tiles.r[])))/ncell(grid5000_tiles.r)
 
@@ -93,7 +93,7 @@ names(grid5000.sp@data) <- 'id_5000'
 grid5000.sf <- st_as_sf(grid5000.sp) # convert polygons to 'sf' object
 grid5000_tiles.sf <- dplyr::left_join(grid5000.sf, tiles_key.df)
 head(grid5000_tiles.sf)
-saveRDS(grid5000_tiles.sf, "./Project.Grid/Grid/rds.files/grid5000_tiles.sf1.rds")
+saveRDS(grid5000_tiles.sf, "./grid_data_box/files_rds/grid5000_tiles.sf1.rds")
 
 max(grid5000_tiles.sf$id_tile)
 grid5000_tiles.sf$crops_tile <- NA
@@ -132,8 +132,8 @@ for(tile_n in unique(grid5000_tiles.sf$id_tile)){
   
 }
 
-saveRDS(grid5000_tiles.sf, "./Project.Grid/Grid/rds.files/grid5000_tiles.sf2.rds")
-grid5000_tiles.sf <- readRDS("./Project.Grid/Grid/rds.files/grid5000_tiles.sf2.rds")
+saveRDS(grid5000_tiles.sf, "./grid_data_box/files_rds/grid5000_tiles.sf2.rds")
+grid5000_tiles.sf <- readRDS("./grid_data_box/files_rds/grid5000_tiles.sf2.rds")
 
 #DELETE CELLS WITHOUT CROPS
 grid5000_tiles.sf <- grid5000_tiles.sf[grid5000_tiles.sf$crops_tile > 0,]
@@ -141,9 +141,9 @@ grid5000_tiles.sf <- grid5000_tiles.sf[!is.na(grid5000_tiles.sf$crops_cell),]
 grid5000_tiles.sf <- grid5000_tiles.sf[grid5000_tiles.sf$crops_cell > 0,]
 
 
-saveRDS(grid5000_tiles.sf, "./Project.Grid/Grid/rds.files/grid5000_tiles.sf3.rds")
-grid5000_tiles.sf <- readRDS("~/Project.Grid/Grid/rds.files/grid5000_tiles.sf3.rds")
-grid5000_tiles.sf <- readRDS("./Project.Grid/Grid/rds.files/grid5000_tiles.sf3.rds")
+saveRDS(grid5000_tiles.sf, "./grid_data_box/files_rds/grid5000_tiles.sf3.rds")
+grid5000_tiles.sf <- readRDS("~/grid_data_box/files_rds/grid5000_tiles.sf3.rds")
+grid5000_tiles.sf <- readRDS("./grid_data_box/files_rds/grid5000_tiles.sf3.rds")
 
 #SIMPLIFICATION: DELETE CELLS THAT HAVE LESS THAN 500 30x30 cells assigned to crops
 hist(grid5000_tiles.sf$crops_cell)
@@ -167,7 +167,7 @@ us_states_GRS80_sf <- us_states_GRS80_sf %>% dplyr::select(US_state = NAME, US_r
 check <- nrow(grid5000_tiles.sf)
 grid5000_tiles.sf <- st_join(grid5000_tiles.sf, us_states_GRS80_sf, join = st_intersects, left = TRUE, largest = TRUE)
 check == nrow(grid5000_tiles.sf)
-saveRDS(grid5000_tiles.sf, "./Project.Grid/Grid/rds.files/grid5000_tiles.sf4.rds")
+saveRDS(grid5000_tiles.sf, "./grid_data_box/files_rds/grid5000_tiles.sf4.rds")
 #grid5000_tiles.sf <- st_intersection(grid5000_tiles.sf,us_states_GRS80_sf)
 
 
@@ -191,8 +191,8 @@ grid5000_tiles.sf <- grid5000_tiles.sf[order(grid5000_tiles.sf$id_tile, grid5000
 rownames(grid5000_tiles.sf) <- 1:nrow(grid5000_tiles.sf)
 
 #SAVE FINAL VERSION
-saveRDS(grid5000_tiles.sf, "./Project.Grid/Grid/rds.files/grid5000_tiles.sf5.rds")
-st_write(grid5000_tiles.sf, "./Project.Grid/Grid/rds.files/grid5000_tiles.shp", delete_dsn=TRUE)
+saveRDS(grid5000_tiles.sf, "./grid_data_box/files_rds/grid5000_tiles.sf5.rds")
+st_write(grid5000_tiles.sf, "./grid_data_box/files_rds/grid5000_tiles.shp", delete_dsn=TRUE)
 
 st_write(grid5000_tiles.sf, "./Project.Grid/Grid/Deliverables/grid5000_tiles.shp", delete_layer = TRUE) # overwrites
 
@@ -213,17 +213,17 @@ st_write(grid5000_tiles.sf, "./Project.Grid/Grid/Deliverables/grid5000_tiles.shp
 # 
 # grid5000_tiles.sf <- dplyr::left_join(grid5000_tiles.sf, seq_id_tile, by = 'id_tile')
 # grid5000_tiles.sf <- dplyr::left_join(grid5000_tiles.sf, seq_id_5000, by = 'id_5000')
-# saveRDS(grid5000_tiles.sf, "./Project.Grid/Grid/rds.files/grid5000_tiles.sf4.rds")
+# saveRDS(grid5000_tiles.sf, "./grid_data_box/files_rds/grid5000_tiles.sf4.rds")
 # grid5000_tiles.sf <- dplyr::select(grid5000_tiles.sf, -c('id_tile', 'id_5000', 'crops_tile'))
 # grid5000_tiles.sf <- dplyr::rename(grid5000_tiles.sf, id_tile = id_tile_c , id_5000 = id_5000_c)
 # grid5000_tiles.sf <- dplyr::select(grid5000_tiles.sf, -c('crops_tile'))
 # #writeOGR(obj=grid5000_tiles.sf, dsn="./Project.Grid/Grid/rds.files", layer="grid5000_tiles", driver="ESRI Shapefile")
-# st_write(grid5000_tiles.sf, "./Project.Grid/Grid/rds.files/grid5000_tiles.gpkg")
+# st_write(grid5000_tiles.sf, "./grid_data_box/files_rds/grid5000_tiles.gpkg")
 # 
 # grid5000_tiles.sf <- st_simplify(grid5000_tiles.sf, preserveTopology = FALSE, dTolerance = 0.01)
 # writeOGR(obj=grid5000_tiles.sf, dsn="./Project.Grid/Grid/rds.files", layer="grid5000_tiles_simp", driver="ESRI Shapefile")
 # 
-# saveRDS(grid5000_tiles.sf, "./Project.Grid/Grid/rds.files/grid5000_tiles.sf5.rds")
+# saveRDS(grid5000_tiles.sf, "./grid_data_box/files_rds/grid5000_tiles.sf5.rds")
 # 
 # head(grid5000_tiles.sf)
 # 
@@ -269,7 +269,7 @@ st_write(grid5000_tiles.sf, "./Project.Grid/Grid/Deliverables/grid5000_tiles.shp
 # unique(grid_mapping.sf$count)
 # all(st_is_valid(grid_mapping.sf))
 # 
-# saveRDS(grid_mapping.sf, "./Project.Grid/Grid/rds.files/grid_mapping.sf.rds")
+# saveRDS(grid_mapping.sf, "./grid_data_box/files_rds/grid_mapping.sf.rds")
 # plot(grid_mapping.sf['count'])
 
 

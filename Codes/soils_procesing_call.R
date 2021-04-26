@@ -10,15 +10,15 @@ files_info <- fread('./Project.Grid/Grid/soilgrid_gsif_code.csv')
 
 #CREATE A NEW GRID FILE: grid5000_tiles.sf TAHT has the proj of the daymet raster 
 if(FALSE){
-  grid5000_tiles.sf <- readRDS("./Project.Grid/Grid/rds.files/grid5000_tiles.sf6.rds")
+  grid5000_tiles.sf <- readRDS("./grid_data_box/files_rds/grid5000_tiles.sf6.rds")
   proj <- raster::crs(soil_variable_tmp.r)
   grid5000_WGS84.sf <- st_transform(grid5000_tiles.sf, proj@projargs)
-  saveRDS(grid5000_WGS84.sf, './Project.Grid/Grid/rds.files/grid5000_WGS84.sf.rds')
+  saveRDS(grid5000_WGS84.sf, './grid_data_box/files_rds/grid5000_WGS84.sf.rds')
   # grid5000_WGS84.spdf <- as(grid5000_WGS84.sf, 'Spatial')
-  # saveRDS(grid5000_WGS84.spdf, './Project.Grid/Grid/rds.files/grid5000_WGS84.spdf.rds') # for the server, cannot use sf package
+  # saveRDS(grid5000_WGS84.spdf, './grid_data_box/files_rds/grid5000_WGS84.spdf.rds') # for the server, cannot use sf package
 }
 
-grid5000_WGS84.sf <- readRDS('./Project.Grid/Grid/rds.files/grid5000_WGS84.sf.rds')
+grid5000_WGS84.sf <- readRDS('./grid_data_box/files_rds/grid5000_WGS84.sf.rds')
 
 
 for (filename_long in files_list){
@@ -29,19 +29,19 @@ for (filename_long in files_list){
   soil_variable_tmp.r <- raster::raster(filename_long)
   soil_variable_info <- files_info[FileName == filename_short]
   soil_variable_tmp_crop.r <- raster::crop(soil_variable_tmp.r, grid5000_WGS84.sf)
-  source('./Project.Grid/Grid/Codes/soils_processing_paralel.R', local=TRUE)
+  source('./grid_data_git/Codes/soils_processing_paralel.R', local=TRUE)
   grid5000_landuse.dt
   results[,source := 'soilgrid']
   results[,variable := soil_variable_info$ATTRIBUTE_LABEL]
   results[,unit := soil_variable_info$ATTRIBUTE_TITLE]
   setcolorder(results, c('id_tile', 'id_5000', 'source', 'variable','unit', 'value'))
-  filename <- paste('./Project.Grid/Grid/rds.files/soil_files/',soil_variable_info$ATTRIBUTE_LABEL, '.rds', sep = '')  
+  filename <- paste('./grid_data_box/files_rds/soil_files/',soil_variable_info$ATTRIBUTE_LABEL, '.rds', sep = '')  
   saveRDS(results, filename)
   print(Sys.time() - start_time)
 }  
   
 #MERGE THE FILES 
-files_names <- list.files('./Project.Grid/Grid/rds.files/soil_files', full.names = TRUE,include.dirs = FALSE)
+files_names <- list.files('./grid_data_box/files_rds/soil_files', full.names = TRUE,include.dirs = FALSE)
 
 grid5000_soils.dt <- data.table()
 for(filename in files_names){
@@ -54,12 +54,12 @@ for(filename in files_names){
   # count_by_batch = 50
   # if(counter %% count_by_batch == 0 | counter == length(files_names)){
   #   batch_count = ceiling(counter/count_by_batch)
-  #   batch_name = paste('./Project.Grid/Grid/rds.files/landuse_files/batches_for_merge/landuse_batch_', batch_count, '.rds', sep = '')   
+  #   batch_name = paste('./grid_data_box/files_rds/landuse_files/batches_for_merge/landuse_batch_', batch_count, '.rds', sep = '')   
   #   saveRDS(grid5000_landuse.dt, batch_name)
   #   grid5000_landuse.dt <- data.table()
   # }#end of the save batches
   
 }#end of the filename loop
 
-saveRDS(grid5000_soils.dt, "./Project.Grid/Grid/rds.files/grid5000_soils.dt.rds")
+saveRDS(grid5000_soils.dt, "./grid_data_box/files_rds/grid5000_soils.dt.rds")
 fwrite(grid5000_soils.dt, './Project.Grid/Grid/Deliverables/grid5000_soils.csv') 

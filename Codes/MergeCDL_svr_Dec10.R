@@ -12,7 +12,7 @@ source('./Codes_useful/R.libraries.R')
 # library(gdalUtils)
 
 #LOAD grid5000_tiles.sf
-grid5000_tiles.sf <- readRDS("./Project.Grid/Grid/rds.files/grid5000_tiles.sf5.rds")
+grid5000_tiles.sf <- readRDS("./grid_data_box/files_rds/grid5000_tiles.sf5.rds")
 nrow(grid5000_tiles.sf)
 head(grid5000_tiles.sf)
 
@@ -67,8 +67,8 @@ for(tile_n in unique_id_tiles){
   landuse.5k.10yr.dt <- data.table()
   ids_5000_seq <- grid5000_tiles.sf[grid5000_tiles.sf$id_tile == tile_n,]$id_5000
   
-  source('./Project.Grid/Grid/Codes/process_CDL_paralel.R')
-  filename <- paste('./Project.Grid/Grid/rds.files/landuse_files/landuse_tile_', tile_n, '.rds', sep = '')  
+  source('./grid_data_git/Codes/process_CDL_paralel.R')
+  filename <- paste('./grid_data_box/files_rds/landuse_files/landuse_tile_', tile_n, '.rds', sep = '')  
   
   saveRDS(results, filename)
   
@@ -77,13 +77,13 @@ for(tile_n in unique_id_tiles){
 }# end of tile_n loop
 
 #DETECT MISSING FILES
-files_names <- list.files('./Project.Grid/Grid/rds.files/landuse_files', pattern = 'landuse_tile_')
+files_names <- list.files('./grid_data_box/files_rds/landuse_files', pattern = 'landuse_tile_')
 files_names2 <- gsub('landuse_tile_','',files_names)
 files_names2 <- as.numeric(gsub('.rds','',files_names2))
 missing <- setdiff(unique(grid5000_tiles.sf$id_tile), files_names2)
 missing[]
 
-files_names <- list.files('./Project.Grid/Grid/rds.files/landuse_files', pattern = 'landuse_tile_', full.names = TRUE,include.dirs = FALSE)
+files_names <- list.files('./grid_data_box/files_rds/landuse_files', pattern = 'landuse_tile_', full.names = TRUE,include.dirs = FALSE)
 
 
 
@@ -99,15 +99,15 @@ for(filename in files_names){
   # count_by_batch = 50
   # if(counter %% count_by_batch == 0 | counter == length(files_names)){
   #   batch_count = ceiling(counter/count_by_batch)
-  #   batch_name = paste('./Project.Grid/Grid/rds.files/landuse_files/batches_for_merge/landuse_batch_', batch_count, '.rds', sep = '')   
+  #   batch_name = paste('./grid_data_box/files_rds/landuse_files/batches_for_merge/landuse_batch_', batch_count, '.rds', sep = '')   
   #   saveRDS(grid5000_landuse.dt, batch_name)
   #   grid5000_landuse.dt <- data.table()
   # }#end of the save batches
 
 }#end of the filename loop
-grid5000_landuse.dt <- readRDS("./Project.Grid/Grid/rds.files/grid5000_landuse.dt.rds")
+grid5000_landuse.dt <- readRDS("./grid_data_box/files_rds/grid5000_landuse.dt.rds")
 setcolorder(grid5000_landuse.dt, c('id_tile', 'id_5000', 'source', 'variable','unit', 'year', 'value'))
-saveRDS(grid5000_landuse.dt, "./Project.Grid/Grid/rds.files/grid5000_landuse.dt.rds")
+saveRDS(grid5000_landuse.dt, "./grid_data_box/files_rds/grid5000_landuse.dt.rds")
 
 #Clean cells in grid500 that have no crops after analysing landuse
 
@@ -158,7 +158,7 @@ grid5000_tiles.sf3 <- dplyr::rename(grid5000_tiles.sf3, cult_count = crops_cell)
 ?rename
 fwrite(grid5000_landuse.dt, './Project.Grid/Grid/Deliverables/grid5000_landuse.csv')
 
-saveRDS(grid5000_tiles.sf3, "./Project.Grid/Grid/rds.files/grid5000_tiles.sf6.rds")
+saveRDS(grid5000_tiles.sf3, "./grid_data_box/files_rds/grid5000_tiles.sf6.rds")
 
 
 st_write(grid5000_tiles.sf3, "./Project.Grid/Grid/Deliverables/grid5000_spatial.shp", delete_layer = TRUE) # overwrites
@@ -177,8 +177,8 @@ st_write(grid5000_tiles.sf3, "./Project.Grid/Grid/Deliverables/grid5000_spatial.
 #                                      "Date", "integer", "logical")))
 
 
-tile20 <- readRDS('./Project.Grid/Grid/rds.files/landuse_files/landuse_tile_20.rds')
-tile21 <- readRDS('./Project.Grid/Grid/rds.files/landuse_files/landuse_tile_21.rds')
+tile20 <- readRDS('./grid_data_box/files_rds/landuse_files/landuse_tile_20.rds')
+tile21 <- readRDS('./grid_data_box/files_rds/landuse_files/landuse_tile_21.rds')
 
 tile_both <- rbind(tile20, tile21)
 head(tile_both)
@@ -209,13 +209,13 @@ for(id_tile_n in id_tile_loop){
 
 
 gdalbuildvrt(list.files("./Project.Grid/Grid/raster_files/",full.names = TRUE),
-             "/home/germanm2/Project.Grid/Grid/rds.files/grid30to5000_all.vrt")
+             "/home/germanm2/grid_data_box/files_rds/grid30to5000_all.vrt")
 
 
-grid30to5000.r <- raster("/home/germanm2/Project.Grid/Grid/rds.files/grid30to5000_all.vrt")
+grid30to5000.r <- raster("/home/germanm2/grid_data_box/files_rds/grid30to5000_all.vrt")
 ncell(grid30to5000.r) / 1000000
 grid30to5000_2.r <- extend(grid30to5000.r, CDL.stk[[1]])
-writeRaster(grid30to5000_2.r, "/home/germanm2/Project.Grid/Grid/rds.files/grid30to5000_all", format = 'GTiff', overwrite = TRUE)
+writeRaster(grid30to5000_2.r, "/home/germanm2/grid_data_box/files_rds/grid30to5000_all", format = 'GTiff', overwrite = TRUE)
 plot(grid30to5000.r)
 extent(grid30to5000.r)
 extent(CDL.stk)
@@ -297,7 +297,7 @@ landuse.5k.10yr.dt <- rbind(landuse.5k.10yr.dt, crop.sensitivity.range.diff, fil
 setcolorder(landuse.5k.10yr.dt, c('id.5000','year', 'source', 'unit', 'variable','value'))
 
 grid5000.dt <- landuse.5k.10yr.dt
-saveRDS(grid5000.dt, './Project.Grid/Grid/rds.files/grid5000.dt.rds')
+saveRDS(grid5000.dt, './grid_data_box/files_rds/grid5000.dt.rds')
 
 
 

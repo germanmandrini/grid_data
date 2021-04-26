@@ -10,8 +10,8 @@ source('./Codes_useful/R.libraries.R')
 library('fasterize')
 
 #LOAD grid5000.r
-grid5000_tiles.sf <- readRDS("./Project.Grid/Grid/rds.files/grid5000_tiles.sf.rds")
-grid_mapping.sf <- readRDS("./Project.Grid/Grid/rds.files/grid_mapping.sf.rds")
+grid5000_tiles.sf <- readRDS("./grid_data_box/files_rds/grid5000_tiles.sf.rds")
+grid_mapping.sf <- readRDS("./grid_data_box/files_rds/grid_mapping.sf.rds")
 plot(grid_mapping.sf['count'])
 
 
@@ -71,7 +71,7 @@ start  <- Sys.time()
 grid30to5000.r <- rasterize(grid5000_tiles.sf, template.r, field = 'id_5000') #Transfer values associated with 'object' type spatial data (points, lines, polygons) to raster cells
 end <- Sys.time()
 end - start
-saveRDS(grid30to5000.r, "./Project.Grid/Grid/rds.files/grid30to5000.r.rds")
+saveRDS(grid30to5000.r, "./grid_data_box/files_rds/grid30to5000.r.rds")
 
 grid30to5000.r <- readRDS("~/Grid/rds.files/grid30to5000.r.rds")
 
@@ -158,7 +158,7 @@ landuse.5k.10yr.dt <- rbind(landuse.5k.10yr.dt, crop.sensitivity.range.diff, fil
 setcolorder(landuse.5k.10yr.dt, c('id.5000','year', 'source', 'unit', 'variable','value'))
 
 grid5000.dt <- landuse.5k.10yr.dt
-saveRDS(grid5000.dt, './Project.Grid/Grid/rds.files/grid5000.dt.rds')
+saveRDS(grid5000.dt, './grid_data_box/files_rds/grid5000.dt.rds')
 
 
 

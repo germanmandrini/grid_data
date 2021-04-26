@@ -12,7 +12,7 @@ library('fasterize')
 library(gdalUtils)
 
 #LOAD grid5000.r
-grid5000_tiles.sf <- readRDS("./Project.Grid/Grid/rds.files/grid5000_tiles.sf.rds")
+grid5000_tiles.sf <- readRDS("./grid_data_box/files_rds/grid5000_tiles.sf.rds")
 
 
 
@@ -67,13 +67,13 @@ for(id_tile_n in id_tile_loop){
 
 
 gdalbuildvrt(list.files("./Project.Grid/Grid/raster_files/",full.names = TRUE),
-             "/home/germanm2/Project.Grid/Grid/rds.files/grid30to5000_all.vrt")
+             "/home/germanm2/grid_data_box/files_rds/grid30to5000_all.vrt")
 
 
-grid30to5000.r <- raster("/home/germanm2/Project.Grid/Grid/rds.files/grid30to5000_all.vrt")
+grid30to5000.r <- raster("/home/germanm2/grid_data_box/files_rds/grid30to5000_all.vrt")
 ncell(grid30to5000.r) / 1000000
 grid30to5000_2.r <- extend(grid30to5000.r, CDL.stk[[1]])
-writeRaster(grid30to5000_2.r, "/home/germanm2/Project.Grid/Grid/rds.files/grid30to5000_all", format = 'GTiff', overwrite = TRUE)
+writeRaster(grid30to5000_2.r, "/home/germanm2/grid_data_box/files_rds/grid30to5000_all", format = 'GTiff', overwrite = TRUE)
 plot(grid30to5000.r)
 extent(grid30to5000.r)
 extent(CDL.stk)
@@ -155,7 +155,7 @@ landuse.5k.10yr.dt <- rbind(landuse.5k.10yr.dt, crop.sensitivity.range.diff, fil
 setcolorder(landuse.5k.10yr.dt, c('id.5000','year', 'source', 'unit', 'variable','value'))
 
 grid5000.dt <- landuse.5k.10yr.dt
-saveRDS(grid5000.dt, './Project.Grid/Grid/rds.files/grid5000.dt.rds')
+saveRDS(grid5000.dt, './grid_data_box/files_rds/grid5000.dt.rds')
 
 
 

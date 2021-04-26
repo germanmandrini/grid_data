@@ -12,7 +12,7 @@ source('./Codes_useful/R.libraries.R')
 # library(gdalUtils)
 
 #LOAD grid5000.r
-grid5000_tiles.sf <- readRDS("./Project.Grid/Grid/rds.files/grid5000_tiles.sf5.rds")
+grid5000_tiles.sf <- readRDS("./grid_data_box/files_rds/grid5000_tiles.sf5.rds")
 
 head(grid5000_tiles.sf)
 
@@ -101,13 +101,13 @@ for(tile_n in unique(grid5000_tiles.sf$id_tile)){
     }#end of 10 years loop
   }#end of cell_n loop
   
-  filename <- paste('./Project.Grid/Grid/rds.files/landuse_files/landuse_tile_', tile_n, '.rds', sep = '')  
+  filename <- paste('./grid_data_box/files_rds/landuse_files/landuse_tile_', tile_n, '.rds', sep = '')  
                     
   saveRDS(landuse.5k.10yr.dt, filename)
 }# end of tile_n loop
 
-tile20 <- readRDS('./Project.Grid/Grid/rds.files/landuse_files/landuse_tile_20.rds')
-tile21 <- readRDS('./Project.Grid/Grid/rds.files/landuse_files/landuse_tile_21.rds')
+tile20 <- readRDS('./grid_data_box/files_rds/landuse_files/landuse_tile_20.rds')
+tile21 <- readRDS('./grid_data_box/files_rds/landuse_files/landuse_tile_21.rds')
 
 tile_both <- rbind(tile20, tile21)
 head(tile_both)
@@ -138,13 +138,13 @@ for(id_tile_n in id_tile_loop){
 
 
 gdalbuildvrt(list.files("./Project.Grid/Grid/raster_files/",full.names = TRUE),
-             "/home/germanm2/Project.Grid/Grid/rds.files/grid30to5000_all.vrt")
+             "/home/germanm2/grid_data_box/files_rds/grid30to5000_all.vrt")
 
 
-grid30to5000.r <- raster("/home/germanm2/Project.Grid/Grid/rds.files/grid30to5000_all.vrt")
+grid30to5000.r <- raster("/home/germanm2/grid_data_box/files_rds/grid30to5000_all.vrt")
 ncell(grid30to5000.r) / 1000000
 grid30to5000_2.r <- extend(grid30to5000.r, CDL.stk[[1]])
-writeRaster(grid30to5000_2.r, "/home/germanm2/Project.Grid/Grid/rds.files/grid30to5000_all", format = 'GTiff', overwrite = TRUE)
+writeRaster(grid30to5000_2.r, "/home/germanm2/grid_data_box/files_rds/grid30to5000_all", format = 'GTiff', overwrite = TRUE)
 plot(grid30to5000.r)
 extent(grid30to5000.r)
 extent(CDL.stk)
@@ -226,7 +226,7 @@ landuse.5k.10yr.dt <- rbind(landuse.5k.10yr.dt, crop.sensitivity.range.diff, fil
 setcolorder(landuse.5k.10yr.dt, c('id.5000','year', 'source', 'unit', 'variable','value'))
 
 grid5000.dt <- landuse.5k.10yr.dt
-saveRDS(grid5000.dt, './Project.Grid/Grid/rds.files/grid5000.dt.rds')
+saveRDS(grid5000.dt, './grid_data_box/files_rds/grid5000.dt.rds')
 
 
 

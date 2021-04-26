@@ -67,7 +67,7 @@ compareRaster(CDL.stk[[1]], grid5000.r, extent=TRUE, rowcol=TRUE, crs=TRUE, res=
 grid5000.sp <- as(grid5000.r, 'SpatialPolygons')
 grid5000.sf <- st_as_sf(grid5000.sp) # convert polygons to 'sf' object
 grid5000.sf$id.5000 = as.numeric(1:nrow(grid5000.sf))
-saveRDS(grid5000.sf, './Project.Grid/Grid/rds.files/grid5000.sf.rds')
+saveRDS(grid5000.sf, './grid_data_box/files_rds/grid5000.sf.rds')
 nrow(grid5000.sf)
 #?rasterize
 grid30to5000.rst <- rasterize(grid5000.sf, CDL.stk[[1]], field = 'id.5000') #Transfer values associated with 'object' type spatial data (points, lines, polygons) to raster cells
@@ -151,7 +151,7 @@ landuse.5k.10yr.dt <- rbind(landuse.5k.10yr.dt, crop.sensitivity.range.diff, fil
 setcolorder(landuse.5k.10yr.dt, c('id.5000','year', 'source', 'unit', 'variable','value'))
 
 grid5000.dt <- landuse.5k.10yr.dt
-saveRDS(grid5000.dt, './Project.Grid/Grid/rds.files/grid5000.dt.rds')
+saveRDS(grid5000.dt, './grid_data_box/files_rds/grid5000.dt.rds')
 
 
 
