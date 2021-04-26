@@ -15,6 +15,7 @@ source('./Codes_useful/R.libraries.R')
 source(paste0(codes_folder, '/grid_data_git/Codes/functions_grid_Dec10.R'))
 "C:/Users/germanm2/Documents/grid_data_git/Codes/functions_grid_Dec10.R"
 
+#====================================================================================
 #DOWNLOAD THE DAILY DATA: 4 VARIABLES
 # Catalogo: https://thredds.daac.ornl.gov/thredds/catalogs/daymet/daymet.html
 # Catalogo2: https://thredds.daac.ornl.gov/thredds/catalogs/ornldaac/Regional_and_Global_Data/DAYMET_COLLECTIONS/DAYMET_COLLECTIONS.html
@@ -51,7 +52,7 @@ download_ask <- data.table(file_name = paste('daymet_v3_', all_combinations[,1],
   .[,file_path := file.path('./grid_data_box/daily_data', file_name)]
 
 
-
+#Files completed (sometimes the code stopped working and had to start over)
 downloaded.c <- list.files(path = '//ad.uillinois.edu/aces/CPSC/share/Bioinformatics Lab/germanm2/Grid/daymet/daily_data', all.files = FALSE,
                             full.names = FALSE, recursive = FALSE,
                             ignore.case = FALSE, include.dirs = FALSE, no.. = FALSE)

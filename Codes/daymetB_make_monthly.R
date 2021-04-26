@@ -9,10 +9,6 @@ codes_folder <-'~' #Server
 
 
 source('./Codes_useful/R.libraries.R')
-
-# source('/home/germanm2/Codes_useful/R.libraries.R')
-
-# source('~/Project.Grid/Grid/Codes/functions_grid_Dec10.R')
 source('./grid_data_git/Codes/functions_grid_Dec10.R')
 
 variables <- c('prcp', 'srad', 'tmax', 'tmin')
@@ -21,7 +17,7 @@ years <- 2019:2020
 # 
 all_combinations = expand.grid(variables, years)
 
-folder_name = '/home/germanm2/daily_data' #srv
+folder_name = '/home/germanm2/grid_data_box/daily_data' #srv
 # folder_name = '//ad.uillinois.edu/aces/CPSC/share/Bioinformatics Lab/germanm2/Grid/daymet/daily_data/' #CPSC
 # folder_name = 'S:/Bioinformatics Lab/germanm2/Grid/daymet/daily_data/'
 # 
@@ -46,9 +42,9 @@ for(row_n in 1:nrow(all_combinations)){
   
   #Open the raw files
   file.brk <-  suppressWarnings(raster::brick(files.year.full))
-  source(paste0(codes_folder, '/grid_data_git/Codes/daymet_make_monthly_paralel_Dec17.R'))
-  "C:/Users/germanm2/Documents/grid_data_git/Codes/daymet_make_monthly_paralel_Dec17.R"
-  "./grid_data_git/Codes/daymet_make_monthly_paralel_Dec17.R"
+  source(paste0(codes_folder, '/grid_data_git/Codes/daymetC_make_monthly_paralel.R'))
+  "C:/Users/germanm2/Documents/grid_data_git/Codes/daymetC_make_monthly_paralel.R"
+  "./grid_data_git/Codes/daymetC_make_monthly_paralel.R"
 } #end row_n loop 
 
 # DELETE ALL FILES
