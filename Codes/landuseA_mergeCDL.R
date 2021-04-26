@@ -62,9 +62,9 @@ for(tile_n in unique_id_tiles){
   landuse.5k.10yr.dt <- data.table()
   ids_5000_seq <- grid5000_tiles.sf[grid5000_tiles.sf$id_tile == tile_n,]$id_5000
   
-  source(paste0(codes_folder, '/grid_data_git/Codes/process_CDL_paralel.R'))
-  "C:/Users/germanm2/Documents/grid_data_git/Codes/process_CDL_paralel.R"
-  "./grid_data_git/Codes/process_CDL_paralel.R"
+  source(paste0(codes_folder, '/grid_data_git/Codes/landuseB_process_CDL_paralel.R'))
+  "./grid_data_git/Codes/landuseB_process_CDL_paralel.R"
+  "C:/Users/germanm2/Documents/grid_data_git/Codes/landuseB_process_CDL_paralel.R"
   
   file_name <- paste('./grid_data_box/files_rds/landuse_files/landuse_tile_', tile_n, '.rds', sep = '')  
   
