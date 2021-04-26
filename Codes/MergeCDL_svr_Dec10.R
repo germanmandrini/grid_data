@@ -1,20 +1,23 @@
-# wd <- 'P:/'
-wd <- 'C:/Users/germa/Box Sync/My_Documents' #Dell
-wd <- 'C:/Users/germanm2/Box Sync/My_Documents' #CPSC
-# wd <- "/home/germanm2/Grid/CDL"
+rm(list=ls())
 
-setwd(wd)
-source('/home/germanm2/Codes_useful/R.libraries.R')
+# setwd('C:/Users/germa/Box Sync/My_Documents') #dell
+# codes_folder <-'C:/Users/germa/Documents'#Dell
+setwd('C:/Users/germanm2/Box Sync/My_Documents')#CPSC
+codes_folder <-'C:/Users/germanm2/Documents'#CPSC
+# setwd('~')#Server
+# codes_folder <-'~' #Server
+
+
 source('./Codes_useful/R.libraries.R')
-#install.packages('fasterize')
-#library('fasterize')
-# install.packages('gdalUtils')
-# library(gdalUtils)
 
 #LOAD grid5000_tiles.sf
 grid5000_tiles.sf <- readRDS("./grid_data_box/files_rds/grid5000_tiles.sf5.rds")
 nrow(grid5000_tiles.sf)
 head(grid5000_tiles.sf)
+
+#========================================================
+# Step 1: Download yearly files of Crop Data Layer from: https://www.nass.usda.gov/Research_and_Science/Cropland/Release/
+
 
 #Keep the rasters in the P drive for now
 
@@ -30,25 +33,28 @@ CDL17 <- raster('./Project.Grid/Grid/CDL/2017_30m_cdls/2017_30m_cdls.img')
 
 
 
-CDL08 <- raster('//ad.uillinois.edu/aces/CPSC/share/Bioinformatics Lab/germanm2/Grid/CDL/2008_30m_cdls/2008_30m_cdls.img')
-CDL09 <- raster('//ad.uillinois.edu/aces/CPSC/share/Bioinformatics Lab/germanm2/Grid/CDL/2009_30m_cdls/2009_30m_cdls.img')
-CDL10 <- raster('//ad.uillinois.edu/aces/CPSC/share/Bioinformatics Lab/germanm2/Grid/CDL/2010_30m_cdls/2010_30m_cdls.img')
-CDL11 <- raster('//ad.uillinois.edu/aces/CPSC/share/Bioinformatics Lab/germanm2/Grid/CDL/2011_30m_cdls/2011_30m_cdls.img')
-CDL12 <- raster('//ad.uillinois.edu/aces/CPSC/share/Bioinformatics Lab/germanm2/Grid/CDL/2012_30m_cdls/2012_30m_cdls.img')
-CDL13 <- raster('//ad.uillinois.edu/aces/CPSC/share/Bioinformatics Lab/germanm2/Grid/CDL/2013_30m_cdls/2013_30m_cdls.img')
-CDL14 <- raster('//ad.uillinois.edu/aces/CPSC/share/Bioinformatics Lab/germanm2/Grid/CDL/2014_30m_cdls/2014_30m_cdls.img')
-CDL15 <- raster('//ad.uillinois.edu/aces/CPSC/share/Bioinformatics Lab/germanm2/Grid/CDL/2015_30m_cdls/2015_30m_cdls.img')
-CDL16 <- raster('//ad.uillinois.edu/aces/CPSC/share/Bioinformatics Lab/germanm2/Grid/CDL/2016_30m_cdls/2016_30m_cdls.img')
-CDL17 <- raster('//ad.uillinois.edu/aces/CPSC/share/Bioinformatics Lab/germanm2/Grid/CDL/2017_30m_cdls/2017_30m_cdls.img')
+# CDL17 <- raster('//ad.uillinois.edu/aces/CPSC/share/Bioinformatics Lab/germanm2/Grid/CDL/2017_30m_cdls/2017_30m_cdls.img')
 
+CDL08 <- raster('S:/Bioinformatics Lab/germanm2/Grid/CDL/2008_30m_cdls/2008_30m_cdls.img')
+CDL09 <- raster('S:/Bioinformatics Lab/germanm2/Grid/CDL/2009_30m_cdls/2009_30m_cdls.img')
+CDL10 <- raster('S:/Bioinformatics Lab/germanm2/Grid/CDL/2010_30m_cdls/2010_30m_cdls.img')
+CDL11 <- raster('S:/Bioinformatics Lab/germanm2/Grid/CDL/2011_30m_cdls/2011_30m_cdls.img')
+CDL12 <- raster('S:/Bioinformatics Lab/germanm2/Grid/CDL/2012_30m_cdls/2012_30m_cdls.img')
+CDL13 <- raster('S:/Bioinformatics Lab/germanm2/Grid/CDL/2013_30m_cdls/2013_30m_cdls.img')
+CDL14 <- raster('S:/Bioinformatics Lab/germanm2/Grid/CDL/2014_30m_cdls/2014_30m_cdls.img')
+CDL15 <- raster('S:/Bioinformatics Lab/germanm2/Grid/CDL/2015_30m_cdls/2015_30m_cdls.img')
+CDL16 <- raster('S:/Bioinformatics Lab/germanm2/Grid/CDL/2016_30m_cdls/2016_30m_cdls.img')
+CDL17 <- raster('S:/Bioinformatics Lab/germanm2/Grid/CDL/2017_30m_cdls/2017_30m_cdls.img')
 
-
+#========================================================
+# Crops we are interested in
 crops <- c('Corn', 'Soybeans', 'Winter Wheat','Fallow/Idle Cropland','Alfalfa','Spring Wheat',
   'Cotton','Sorghum', 'Dbl Crop WinWht/Soybeans', 'Rice', 'Barley', 'Dry Beans', 'Durum Wheat',
   'Canola', 'Oats','Peanuts','Almonds','Sunflower','Peas')
 
 length(crops)
 
+# Reference: each number is a crop. Defined by CDL people
 cdl.info.dt <- CDL08@data@attributes[[1]] %>% data.table() %>% .[COUNT >0] %>%
   .[,.(id.crop = ID, variable = Class_Names)] %>% .[variable %in% crops] %>% .[,id.crop := as.numeric(id.crop)] 
 
@@ -59,7 +65,8 @@ length(unique(grid5000_tiles.sf$id_tile))
 unique_id_tiles <- unique(grid5000_tiles.sf$id_tile)
 length(unique_id_tiles)
 
-
+#========================================================
+# Process the CDL rater: it will obtain for each cell the count of 30x30 pixels with each crop each year
 
 for(tile_n in unique_id_tiles){
   #tile_n = 691
@@ -67,16 +74,19 @@ for(tile_n in unique_id_tiles){
   landuse.5k.10yr.dt <- data.table()
   ids_5000_seq <- grid5000_tiles.sf[grid5000_tiles.sf$id_tile == tile_n,]$id_5000
   
-  source('./grid_data_git/Codes/process_CDL_paralel.R')
-  filename <- paste('./grid_data_box/files_rds/landuse_files/landuse_tile_', tile_n, '.rds', sep = '')  
+  source(paste0(codes_folder, '/grid_data_git/Codes/process_CDL_paralel.R'))
+  "C:/Users/germanm2/Documents/grid_data_git/Codes/process_CDL_paralel.R"
+  "./grid_data_git/Codes/process_CDL_paralel.R"
   
-  saveRDS(results, filename)
+  file_name <- paste('./grid_data_box/files_rds/landuse_files/landuse_tile_', tile_n, '.rds', sep = '')  
+  
+  saveRDS(results, file_name)
   
   #landuse.5k.10yr.dt <- rbind(landuse.5k.10yr.dt, results) 
   
 }# end of tile_n loop
 
-#DETECT MISSING FILES
+# DETECT MISSING FILES
 files_names <- list.files('./grid_data_box/files_rds/landuse_files', pattern = 'landuse_tile_')
 files_names2 <- gsub('landuse_tile_','',files_names)
 files_names2 <- as.numeric(gsub('.rds','',files_names2))

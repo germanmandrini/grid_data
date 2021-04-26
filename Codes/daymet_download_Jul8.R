@@ -48,7 +48,7 @@ all_combinations = expand.grid(variables, years)
   
 download_ask <- data.table(file_name = paste('daymet_v3_', all_combinations[,1], '_', all_combinations[,2], '_na.nc4', sep='')) %>%
   .[,download_link := paste('https://thredds.daac.ornl.gov/thredds/fileServer/ornldaac/1328/',all_combinations[,2],'/', file_name, sep = '')] %>%
-  .[,file_path := file.path('C:/Users/germanm2/Documents/daily_data', file_name)]
+  .[,file_path := file.path('./grid_data_box/daily_data', file_name)]
 
 
 
